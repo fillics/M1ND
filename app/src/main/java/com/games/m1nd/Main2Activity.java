@@ -22,7 +22,11 @@ public class Main2Activity extends AppCompatActivity {
 
     int[] casuali = new int[4];
     int[] utente = new int[4];
-    int cont, i, occupati = 0;
+    int[] confronto = new int[4];
+    int cont, i, cont1, occupati = 0;
+    int presente = 0;
+    int giusto = 0;
+    boolean trovato = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -372,6 +376,7 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
+
         // Genero numero casuale
         final Random rand = new Random();
         btnRandom.setOnClickListener(new View.OnClickListener() {
@@ -396,7 +401,6 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
-
 
         btnGuess.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -438,12 +442,67 @@ public class Main2Activity extends AppCompatActivity {
                     tvNumeroInserito.append(tvInput2.getText());
                     tvNumeroInserito.append(tvInput3.getText());
                     tvNumeroInserito.append(tvInput4.getText());
+
+                    utente[0] = Integer.parseInt(tvInput1.getText().toString());
+                    utente[1] = Integer.parseInt(tvInput2.getText().toString());
+                    utente[2] = Integer.parseInt(tvInput3.getText().toString());
+                    utente[3] = Integer.parseInt(tvInput4.getText().toString());
+
+                    //confronta l'array utente e l'array casuali generato all'inizio
+                    //se il numero è nel posto giusto il corrispondente in confronto viene messo a 2 altrimenti a 0
+                    for(cont=0;cont<4;cont++){
+                        if(utente[cont]==casuali[cont]){
+                            casuali[cont]=2;
+                        }
+                        else{
+                            casuali[cont]=0;
+                        }
+                    }
+                    //qui riempie con 1 confronto se il numero è nel posto sbagliato
+                    for(cont1=0;cont1<4;cont1++){
+                        trovato=false;
+                        if(confronto[cont1]!=2){
+                            cont=0;
+                            do{
+                                if(utente[cont1]==casuali[cont]){
+                                    confronto[cont]=1;
+                                    trovato=true;
+                                }
+                                cont++;
+                            }while((cont<4)&&(!trovato));
+                        }
+                    }
+                    //conta quanti sono al posto giusto e al posto sbagliato
+                    for(cont=0;cont<4;cont++){
+
+                        switch(confronto[cont]){
+                            case 1:
+                                presente++;
+                                break;
+                            case 2:
+                                giusto++;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    if(giusto==4){
+                        //qui il gioco deve finire o deve uscire un schermata per una nuova partita
+                        tvControllo.setText("Hai vinto!");
+                    }
+                    else{
+                        //qui viene detto a parole ma possiamo fargli inserire pallini pieni e vuoti come nel gioco classico
+                        tvControllo.setText("");
+                        tvControllo.append("Ci sono "+presente+" numeri al posto sbagliato e "+giusto+" numeri al posto giusto");
+                    }
+
                 }
             }
         });
 
- // per visualizzare i tentativi che si sono fatti
 
+ // per visualizzare i tentativi che si sono fatti
         btnTentativi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -481,7 +540,6 @@ public class Main2Activity extends AppCompatActivity {
                 buttons.setVisibility(View.VISIBLE);
                 esito_layout.setVisibility(View.INVISIBLE);
                 risultati.setVisibility(View.INVISIBLE);
-                //ciao
 
             }
         });
