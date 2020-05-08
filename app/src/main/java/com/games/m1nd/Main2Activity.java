@@ -481,6 +481,7 @@ public class Main2Activity extends AppCompatActivity {
                 buttons.setVisibility(View.VISIBLE);
                 esito_layout.setVisibility(View.INVISIBLE);
                 risultati.setVisibility(View.INVISIBLE);
+                //ciao
 
             }
         });
