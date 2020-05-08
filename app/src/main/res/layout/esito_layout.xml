@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/hai_inserito"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        android:fontFamily="@font/fredokaone_regular"
+        android:text="Hai inserito il numero:"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="36dp" />
+
+    <TextView
+        android:id="@+id/tvNumeroInserito"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hai_inserito"
+        android:fontFamily="@font/fredokaone_regular"
+
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="50dp" />
+
+    <TextView
+        android:id="@+id/tvControllo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvEsito"
+        android:fontFamily="@font/fredokaone_regular"
+
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="35dp" />
+</RelativeLayout>
