@@ -67,6 +67,8 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 occupati=0;
+                presente = 0;
+                giusto = 0;
                 tvInput1.setText("_");
                 tvInput2.setText("_");
                 tvInput3.setText("_");
@@ -394,10 +396,10 @@ public class Main2Activity extends AppCompatActivity {
                 btnRandom.setClickable(false);
 
                 //per visualizzare il numero generato casuale da indovinare
-                //tvInput1.setText(String.valueOf(casuali[0]));
-                //tvInput2.setText(String.valueOf(casuali[1]));
-                //tvInput3.setText(String.valueOf(casuali[2]));
-                //tvInput4.setText(String.valueOf(casuali[3]));
+                tvInput1.setText(String.valueOf(casuali[0]));
+                tvInput2.setText(String.valueOf(casuali[1]));
+                tvInput3.setText(String.valueOf(casuali[2]));
+                tvInput4.setText(String.valueOf(casuali[3]));
 
             }
         });
@@ -435,13 +437,6 @@ public class Main2Activity extends AppCompatActivity {
                     btnTentativi.setVisibility(View.GONE);
                     btnBack.setVisibility(View.VISIBLE);
 
-                    buttons.setVisibility(View.GONE);
-                    esito_layout.setVisibility(View.VISIBLE);
-
-                    tvNumeroInserito.setText(tvInput1.getText());
-                    tvNumeroInserito.append(tvInput2.getText());
-                    tvNumeroInserito.append(tvInput3.getText());
-                    tvNumeroInserito.append(tvInput4.getText());
 
                     utente[0] = Integer.parseInt(tvInput1.getText().toString());
                     utente[1] = Integer.parseInt(tvInput2.getText().toString());
@@ -452,10 +447,10 @@ public class Main2Activity extends AppCompatActivity {
                     //se il numero è nel posto giusto il corrispondente in confronto viene messo a 2 altrimenti a 0
                     for(cont=0;cont<4;cont++){
                         if(utente[cont]==casuali[cont]){
-                            casuali[cont]=2;
+                            confronto[cont]=2;
                         }
                         else{
-                            casuali[cont]=0;
+                            confronto[cont]=0;
                         }
                     }
                     //qui riempie con 1 confronto se il numero è nel posto sbagliato
@@ -497,7 +492,15 @@ public class Main2Activity extends AppCompatActivity {
                         tvControllo.append("Ci sono "+presente+" numeri al posto sbagliato e "+giusto+" numeri al posto giusto");
                     }
 
+                    buttons.setVisibility(View.GONE);
+                    esito_layout.setVisibility(View.VISIBLE);
+
+                    tvNumeroInserito.setText(tvInput1.getText());
+                    tvNumeroInserito.append(tvInput2.getText());
+                    tvNumeroInserito.append(tvInput3.getText());
+                    tvNumeroInserito.append(tvInput4.getText());
                 }
+
             }
         });
 
