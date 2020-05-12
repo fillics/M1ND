@@ -13,24 +13,25 @@
         android:gravity="bottom">
 
         <include
+            android:id="@+id/output"
             layout="@layout/output_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
         <include
-            layout="@layout/buttons_layout"
             android:id="@+id/buttons"
+            layout="@layout/buttons_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <include
-            layout="@layout/risultati_layout"
-            android:id="@+id/risultati"
+            android:id="@+id/tentativi"
+            layout="@layout/tentativi_layout"
             android:visibility="gone"/>
 
         <include
-            layout="@layout/errormessage"
             android:id="@+id/errormessage"
+            layout="@layout/errormessage"
             android:visibility="gone"/>
 
         <include

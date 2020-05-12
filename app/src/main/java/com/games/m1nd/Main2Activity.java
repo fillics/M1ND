@@ -1,10 +1,12 @@
 package com.games.m1nd;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,8 +18,10 @@ public class Main2Activity extends AppCompatActivity {
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnClear, btnGuess, btnTentativi, btnBack;
     Button btnRandom;
     TextView tvInput1, tvInput2, tvInput3, tvInput4, tvTentativi, tvNumeroInserito, tvControllo;
-    RelativeLayout buttons, errormessage, esito_layout;
-    LinearLayout risultati;
+    RelativeLayout buttons_layout, errormessage_layout;
+    LinearLayout tentativi_layout;
+    ImageView iwPallino1, iwPallino2, iwPallino3, iwPallino4;
+    ConstraintLayout esito_layout;
 
 
     int[] casuali = new int[4];
@@ -26,6 +30,7 @@ public class Main2Activity extends AppCompatActivity {
     int cont, i, cont1, occupati = 0;
     int presente = 0;
     int giusto = 0;
+    int pallini = 0;
     boolean trovato = false;
 
     @Override
@@ -53,13 +58,29 @@ public class Main2Activity extends AppCompatActivity {
         tvInput2 = findViewById(R.id.tvInput2);
         tvInput3 = findViewById(R.id.tvInput3);
         tvInput4 = findViewById(R.id.tvInput4);
-        tvTentativi = findViewById(R.id.tvTentativi); // casella di testo dove compaiono i tentativi
-        buttons = findViewById(R.id.buttons); //layout dei bottoni
-        risultati = findViewById(R.id.risultati); //layout dei tentativi, che dovrei chiamare "tentativi" al posto di "risultati"
-        errormessage = findViewById(R.id.errormessage); //layout dell'errore riguardo all'inserire 4 cifre
+        tvTentativi = findViewById(R.id.tvTentativi); // casella di testo dove compaiono i tentativi_layout
+        buttons_layout = findViewById(R.id.buttons); //layout dei bottoni
+        tentativi_layout = findViewById(R.id.tentativi); //layout dei tentativi_layout
+        errormessage_layout = findViewById(R.id.errormessage); //layout dell'errore riguardo all'inserire 4 cifre
         esito_layout = findViewById(R.id.esito_layout); //layout dell'esito
         tvNumeroInserito = findViewById(R.id.tvNumeroInserito); // casella di testo dove esce fuori il numero scritto dall'utente
         tvControllo = findViewById(R.id.tvControllo);   //casella di testo dove ti dice quanti ne hai azzeccati
+        iwPallino1 = findViewById(R.id.iwPallino1); // per visualizzare pallini che indicano quante cifre azzeccate
+        iwPallino2 = findViewById(R.id.iwPallino2);
+        iwPallino3 = findViewById(R.id.iwPallino3);
+        iwPallino4 = findViewById(R.id.iwPallino4);
+
+
+        // Genero numero casuale
+        final Random rand = new Random();
+        for(cont=0;cont<4;cont++){
+            casuali[cont]=rand.nextInt(10);
+            for(i=0;i<cont;i++){
+                if(casuali[i]==casuali[cont]){
+                    cont--;
+                }
+            }
+        }
 
 
         //Clear la casella dei numeri
@@ -379,27 +400,18 @@ public class Main2Activity extends AppCompatActivity {
         });
 
 
-        // Genero numero casuale
-        final Random rand = new Random();
-        btnRandom.setOnClickListener(new View.OnClickListener() {
+         btnRandom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(cont=0;cont<4;cont++){
-                    casuali[cont]=rand.nextInt(10);
-                    for(i=0;i<cont;i++){
-                        if(casuali[i]==casuali[cont]){
-                            cont--;
-                        }
-                    }
-                }
+
                 btnRandom.setText("Numero Casuale Generato");
                 btnRandom.setClickable(false);
 
                 //per visualizzare il numero generato casuale da indovinare
-                tvInput1.setText(String.valueOf(casuali[0]));
-                tvInput2.setText(String.valueOf(casuali[1]));
-                tvInput3.setText(String.valueOf(casuali[2]));
-                tvInput4.setText(String.valueOf(casuali[3]));
+                //tvInput1.setText(String.valueOf(casuali[0]));
+                //tvInput2.setText(String.valueOf(casuali[1]));
+                //tvInput3.setText(String.valueOf(casuali[2]));
+                //tvInput4.setText(String.valueOf(casuali[3]));
 
             }
         });
@@ -407,30 +419,38 @@ public class Main2Activity extends AppCompatActivity {
         btnGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                presente = 0;
+                giusto = 0;
+                pallini = 0;
+                iwPallino1.setImageResource(android.R.color.transparent);
+                iwPallino2.setImageResource(android.R.color.transparent);
+                iwPallino3.setImageResource(android.R.color.transparent);
+                iwPallino4.setImageResource(android.R.color.transparent);
+
                 //se non si inseriscono 4 cifre, viene visualizzato messaggio di errore
-                if(occupati!=4 && buttons.getVisibility() == View.VISIBLE){
-                    buttons.setVisibility(View.INVISIBLE);
+                if(occupati!=4 && buttons_layout.getVisibility() == View.VISIBLE){
+                    buttons_layout.setVisibility(View.INVISIBLE);
                     esito_layout.setVisibility(View.INVISIBLE);
                     btnGuess.setVisibility(View.INVISIBLE);
                     btnTentativi.setVisibility(View.INVISIBLE);
-                    errormessage.setVisibility(View.VISIBLE);
-                    errormessage.postDelayed(new Runnable() {
+                    errormessage_layout.setVisibility(View.VISIBLE);
+                    errormessage_layout.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            errormessage.setVisibility(View.GONE);
+                            errormessage_layout.setVisibility(View.GONE);
                             btnTentativi.setVisibility(View.VISIBLE);
                             btnGuess.setVisibility(View.VISIBLE);
-                            buttons.setVisibility(View.VISIBLE);
+                            buttons_layout.setVisibility(View.VISIBLE);
                         }
                     }, 1500);
 
                 }
-                if(buttons.getVisibility() == View.GONE){
+                if(buttons_layout.getVisibility() == View.GONE){
                     btnGuess.setVisibility(View.GONE);
                     btnTentativi.setVisibility(View.GONE);
                     btnBack.setVisibility(View.VISIBLE);
                     esito_layout.setVisibility(View.GONE);
-                    buttons.setVisibility(View.VISIBLE);
+                    buttons_layout.setVisibility(View.VISIBLE);
                 }
                 else if(occupati == 4) {
                     btnGuess.setVisibility(View.GONE);
@@ -489,47 +509,111 @@ public class Main2Activity extends AppCompatActivity {
                     else{
                         //qui viene detto a parole ma possiamo fargli inserire pallini pieni e vuoti come nel gioco classico
                         tvControllo.setText("");
-                        tvControllo.append("Ci sono "+presente+" numeri al posto sbagliato e "+giusto+" numeri al posto giusto");
+                        tvControllo.append(""+presente+" numeri al posto sbagliato e "+giusto+" numeri al posto giusto");
+
+                        switch (giusto){
+                            case 1:
+                                iwPallino1.setImageResource(R.drawable.pallino_full);
+                                break;
+
+                            case 2:
+                                iwPallino1.setImageResource(R.drawable.pallino_full);
+                                iwPallino2.setImageResource(R.drawable.pallino_full);
+                                break;
+
+                            case 3:
+                                iwPallino1.setImageResource(R.drawable.pallino_full);
+                                iwPallino2.setImageResource(R.drawable.pallino_full);
+                                iwPallino3.setImageResource(R.drawable.pallino_full);
+                                break;
+                        }
+
+                        switch (presente){
+                            case 1:
+                                if (giusto == 0){
+                                    iwPallino1.setImageResource(R.drawable.pallino_empty);
+                                }
+                                if (giusto == 1){
+                                    iwPallino2.setImageResource(R.drawable.pallino_empty);
+                                }
+                                if (giusto == 2){
+                                    iwPallino3.setImageResource(R.drawable.pallino_empty);
+                                }
+                                break;
+
+                            case 2:
+                                if (giusto == 0){
+                                    iwPallino1.setImageResource(R.drawable.pallino_empty);
+                                    iwPallino2.setImageResource(R.drawable.pallino_empty);
+                                }
+                                if (giusto == 1){
+                                    iwPallino2.setImageResource(R.drawable.pallino_empty);
+                                    iwPallino3.setImageResource(R.drawable.pallino_empty);
+                                }
+                                if (giusto == 2){
+                                    iwPallino3.setImageResource(R.drawable.pallino_empty);
+                                    iwPallino4.setImageResource(R.drawable.pallino_empty);
+                                }
+                                break;
+
+                            case 3:
+                                if (giusto == 1){
+                                    iwPallino2.setImageResource(R.drawable.pallino_empty);
+                                    iwPallino3.setImageResource(R.drawable.pallino_empty);
+                                    iwPallino4.setImageResource(R.drawable.pallino_empty);
+                                }
+                                break;
+                        }
+
                     }
 
-                    buttons.setVisibility(View.GONE);
+                    buttons_layout.setVisibility(View.GONE);
                     esito_layout.setVisibility(View.VISIBLE);
 
                     tvNumeroInserito.setText(tvInput1.getText());
                     tvNumeroInserito.append(tvInput2.getText());
                     tvNumeroInserito.append(tvInput3.getText());
                     tvNumeroInserito.append(tvInput4.getText());
+
+                    tvTentativi.append(("\n"));
+                    tvTentativi.append(tvNumeroInserito.getText());
+                    tvTentativi.append(("\n"));
+                    tvTentativi.append(tvControllo.getText());
+
+                    tvInput1.setText("_");
+                    tvInput2.setText("_");
+                    tvInput3.setText("_");
+                    tvInput4.setText("_");
+                    occupati = 0;
                 }
 
             }
         });
 
 
- // per visualizzare i tentativi che si sono fatti
+ // per visualizzare i tentativi_layout che si sono fatti
         btnTentativi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(buttons.getVisibility() == View.GONE){
+                if(buttons_layout.getVisibility() == View.GONE){
                     btnGuess.setVisibility(View.GONE);
                     btnTentativi.setVisibility(View.GONE);
                     btnBack.setVisibility(View.VISIBLE);
-                    buttons.setVisibility(View.VISIBLE);
-                    risultati.setVisibility(View.INVISIBLE);
+                    buttons_layout.setVisibility(View.VISIBLE);
+                    tentativi_layout.setVisibility(View.INVISIBLE);
                     esito_layout.setVisibility(View.INVISIBLE);
                 }
 
-                else if(buttons.getVisibility() == View.VISIBLE){
+                else if(buttons_layout.getVisibility() == View.VISIBLE){
                     btnGuess.setVisibility(View.GONE);
                     btnTentativi.setVisibility(View.GONE);
                     btnBack.setVisibility(View.VISIBLE);
-                    buttons.setVisibility(View.GONE);
+                    buttons_layout.setVisibility(View.GONE);
                     esito_layout.setVisibility(View.INVISIBLE);
-                    risultati.setVisibility(View.VISIBLE);
-                    tvTentativi.setText(tvInput1.getText());
-                    tvTentativi.append(tvInput2.getText());
-                    tvTentativi.append(tvInput3.getText());
-                    tvTentativi.append(tvInput4.getText());
+                    tentativi_layout.setVisibility(View.VISIBLE);
+
+
                 }
             }
         });
@@ -540,9 +624,9 @@ public class Main2Activity extends AppCompatActivity {
                 btnGuess.setVisibility(View.VISIBLE);
                 btnTentativi.setVisibility(View.VISIBLE);
                 btnBack.setVisibility(View.GONE);
-                buttons.setVisibility(View.VISIBLE);
+                buttons_layout.setVisibility(View.VISIBLE);
                 esito_layout.setVisibility(View.INVISIBLE);
-                risultati.setVisibility(View.INVISIBLE);
+                tentativi_layout.setVisibility(View.INVISIBLE);
 
             }
         });

@@ -3,8 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="top"
-    android:id="@+id/layout1">
+    android:gravity="top">
 
     <Button
         android:id="@+id/btnRandom"
@@ -13,14 +12,15 @@
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/fredokaone_regular"
         android:text="Genera Numero casuale"
-        android:layout_marginTop="50dp"
-        android:layout_margin="50dp"/>
+        android:layout_margin="30dp"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lin_lay_numbers"
         android:layout_below="@+id/btnRandom"
+        android:layout_marginTop="40dp"
         android:gravity="center">
 
         <TextView
@@ -79,7 +79,7 @@
             android:id="@+id/btnGuess"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/fredokaone_regular"
             android:layout_marginRight="10dp"
             android:text="Indovina"/>
@@ -88,7 +88,7 @@
             android:id="@+id/btnTentativi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/fredokaone_regular"
             android:text="Tentativi" />
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:text="Back"
             android:visibility="gone"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/fredokaone_regular"/>
 
     </LinearLayout>

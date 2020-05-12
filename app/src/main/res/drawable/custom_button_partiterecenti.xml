@@ -4,7 +4,7 @@
 
 
     <!-- Colore Background    -->
-    <solid android:color="#259625" />
+    <solid android:color="#2fbe2f" />
 
     <!--Border    -->
     <stroke android:width="5px" android:color="#000000" />
