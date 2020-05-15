@@ -31,6 +31,7 @@ public class Main2Activity extends AppCompatActivity {
     int presente = 0;
     int giusto = 0;
     int pallini = 0;
+    int pallino = 0;
     boolean trovato = false;
 
     @Override
@@ -510,62 +511,49 @@ public class Main2Activity extends AppCompatActivity {
                         //qui viene detto a parole ma possiamo fargli inserire pallini pieni e vuoti come nel gioco classico
                         tvControllo.setText("");
                         tvControllo.append(""+presente+" numeri al posto sbagliato e "+giusto+" numeri al posto giusto");
-
-                        switch (giusto){
-                            case 1:
-                                iwPallino1.setImageResource(R.drawable.pallino_full);
-                                break;
-
-                            case 2:
-                                iwPallino1.setImageResource(R.drawable.pallino_full);
-                                iwPallino2.setImageResource(R.drawable.pallino_full);
-                                break;
-
-                            case 3:
-                                iwPallino1.setImageResource(R.drawable.pallino_full);
-                                iwPallino2.setImageResource(R.drawable.pallino_full);
-                                iwPallino3.setImageResource(R.drawable.pallino_full);
-                                break;
+                        pallino=0;
+                        for(cont = 0; cont < giusto; cont++){
+                            switch(pallino) {
+                                case 0:
+                                    iwPallino1.setImageResource(R.drawable.pallino_full);
+                                    pallino++;
+                                    break;
+                                case 1:
+                                    iwPallino2.setImageResource(R.drawable.pallino_full);
+                                    pallino++;
+                                    break;
+                                case 2:
+                                    iwPallino3.setImageResource(R.drawable.pallino_full);
+                                    pallino++;
+                                    break;
+                                case 3:
+                                    iwPallino4.setImageResource(R.drawable.pallino_full);
+                                    pallino++;
+                                    break;
+                            }
                         }
-
-                        switch (presente){
-                            case 1:
-                                if (giusto == 0){
+                        for(cont = 0; cont < presente; cont++){
+                            switch(pallino) {
+                                case 0:
                                     iwPallino1.setImageResource(R.drawable.pallino_empty);
-                                }
-                                if (giusto == 1){
+                                    pallino++;
+                                    break;
+                                case 1:
                                     iwPallino2.setImageResource(R.drawable.pallino_empty);
-                                }
-                                if (giusto == 2){
+                                    pallino++;
+                                    break;
+                                case 2:
                                     iwPallino3.setImageResource(R.drawable.pallino_empty);
-                                }
-                                break;
-
-                            case 2:
-                                if (giusto == 0){
-                                    iwPallino1.setImageResource(R.drawable.pallino_empty);
-                                    iwPallino2.setImageResource(R.drawable.pallino_empty);
-                                }
-                                if (giusto == 1){
-                                    iwPallino2.setImageResource(R.drawable.pallino_empty);
-                                    iwPallino3.setImageResource(R.drawable.pallino_empty);
-                                }
-                                if (giusto == 2){
-                                    iwPallino3.setImageResource(R.drawable.pallino_empty);
+                                    pallino++;
+                                    break;
+                                case 3:
                                     iwPallino4.setImageResource(R.drawable.pallino_empty);
-                                }
-                                break;
-
-                            case 3:
-                                if (giusto == 1){
-                                    iwPallino2.setImageResource(R.drawable.pallino_empty);
-                                    iwPallino3.setImageResource(R.drawable.pallino_empty);
-                                    iwPallino4.setImageResource(R.drawable.pallino_empty);
-                                }
-                                break;
+                                    pallino++;
+                                    break;
+                            }
                         }
-
                     }
+
 
                     buttons_layout.setVisibility(View.GONE);
                     esito_layout.setVisibility(View.VISIBLE);
